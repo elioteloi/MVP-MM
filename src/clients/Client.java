@@ -2,7 +2,7 @@ package clients;
 
 public abstract class Client {
 
-    private final int id;
+clea    private int id;
     private String name;
     private String cellphone;
     private Category categoria;
@@ -38,13 +38,13 @@ public abstract class Client {
         this.name = name;
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
