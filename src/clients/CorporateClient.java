@@ -6,12 +6,15 @@ public class CorporateClient extends Client{
 
     public CorporateClient(int id, String name, String cellphone, Category categoria, String cnpj) {
         super(id, name, cellphone, categoria);
+
+        this.cnpj = cnpj;
     }
 
     @Override
     public String toString() {
         return "CorporateClient{" +
-                "cnpj='" + cnpj + '\'' +
+                ", parent=" + super.toString() +
+                "cnpj='" + this.cnpj + '\'' +
                 '}';
     }
 }
