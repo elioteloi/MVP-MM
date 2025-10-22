@@ -1,7 +1,4 @@
-import clients.Category;
-import clients.Client;
-import clients.ClientService;
-import clients.CorporateClient;
+import clients.*;
 import products.Product;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -11,17 +8,20 @@ public class Main {
 
 //        Client client = new Client(1, "John", "123456789", Category.GOLD);
 
-//        CorporateClient corporateClient new CorporateClient(2, "marc", "48980080", Category.SILVER);
-        CorporateClient corporateClient = new CorporateClient(2, "marc", "48980080", Category.SILVER, "32432434");
+        CorporateClient corporateClient = new CorporateClient(1, "marc", "48980080", Category.SILVER, "32432434");
 
         System.out.println(corporateClient);
 
+        IndiviualClient indiviualClient = new IndiviualClient(2, "john", "3243254253", Category.BRONZE, "32243322332");
 
-        Product p1 = new Product(1, "Laptop", "ABC123", 1200.0, 1000.0, 6);
-
-        System.out.println(p1);
+        System.out.println(indiviualClient);
 
         ClientService CS = new ClientService();
+
+        CS.addClient(corporateClient);
+        CS.addClient(indiviualClient);
+
+        System.out.println(CS.getClient(1));
 
     }
 }
