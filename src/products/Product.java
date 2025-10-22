@@ -1,10 +1,13 @@
-package Products;
+package products;
 
 public class Product {
 
     private int id;
     private String name;
     private String barCode;
+    private double price;
+    private double averageCost;
+    private int stock;
 
     public Product(int id, String name, String barCode, double price, double averageCost, int stock) {
         this.id = id;
@@ -63,11 +66,15 @@ public class Product {
         this.stock = stock;
     }
 
-    private double price;
-    private double averageCost;
-    private int stock;
-
-
-
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", barCode='" + barCode + '\'' +
+                ", price=" + price +
+                ", averageCost=" + averageCost +
+                ", stock=" + stock +
+                '}';
+    }
 }

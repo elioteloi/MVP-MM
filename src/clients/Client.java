@@ -1,8 +1,8 @@
-package Clients;
+package clients;
 
-public class Client {
+public abstract class Client {
 
-    private int id;
+    private final int id;
     private String name;
     private String cellphone;
     private Category categoria;
@@ -38,12 +38,21 @@ public class Client {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cellphone='" + cellphone + '\'' +
+                ", categoria=" + categoria +
+                '}';
     }
-
 }

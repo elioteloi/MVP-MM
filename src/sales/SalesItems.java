@@ -1,4 +1,4 @@
-package Sales;
+package sales;
 
 public class SalesItems {
     private int id;
