@@ -1,0 +1,1 @@
+// This is a project for a small shop created in java using the SOLID principals
