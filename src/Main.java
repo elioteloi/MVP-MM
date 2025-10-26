@@ -46,34 +46,36 @@ public class Main {
         // edit product
 //         System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
 
+        //list all products
 //         productService.listProduct();
-
-        // registro no estoque
 
 
 // ------------------------------------------------------------------------------------------------------------//
 
+        // create discount
         DiscountFidelity discountFidelity = new DiscountFidelity(Category.BRONZE, 10);
 
 
-        SalesItems salesItems1 = new SalesItems(1, "apple", 1, 20.00);
+        // create new item for sale
+        SalesItems salesItems1 = new SalesItems(1, "apple", 10, 20.00);
         SalesItems salesItems2 = new SalesItems(2, "banana", 1, 10.00);
 
 
+        // create an array to put the items
         SalesItems[] itemsArray1 = new SalesItems[] { salesItems1, salesItems2 };
+
+        // create the sale
         Sale sale1 = new Sale(1, corporateClient, itemsArray1, discountFidelity.discount(Category.BRONZE), 20);
 
 
+        // put product service to sale service
         SalesService salesService = new SalesService(productService);
 
         // add new sale
-        salesService.addSale(sale1);
-
+        System.out.println(salesService.addSale(sale1));
 
         // get all sales items
 //        salesService.getAllSalesItems();
-
-//        productService.listProduct();
 
 
     }

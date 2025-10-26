@@ -15,8 +15,8 @@ public class SalesService {
         this.productService = productService;
     }
 
-    double temp = 0;
-    public void addSale(Sale sale) {
+    public String addSale(Sale sale) {
+        double total = 0.0;
         if (this.sales.containsKey(sale.getId())) {
             throw new RuntimeException("ID of the sale already exist");
         }
@@ -26,22 +26,26 @@ public class SalesService {
             Product product = productService.getProduct(item.getId());
 
 
+            if (product.getStock() < item.getQuantity()) {
+                    throw new RuntimeException("Not enough stock for product: " + product.getName());
+            }
             // substract the quantity with the stock
             int totalStockAfterSell = product.getStock() - item.getQuantity();
             // edit the new product with the new stock
             productService.editProduct(product.getId(),product.getName(), product.getBarCode(), product.getPrice(), product.getAverageCost(), totalStockAfterSell);
-            temp = temp + item.getPrice();
+
+            // give the total of the sale
+            total = total + item.getPrice() * item.getQuantity();
         }
-        System.out.println("Total price: " + temp);
 
+        double discountAmount = total * sale.getDiscount();
+        double finalPrice = total - discountAmount;
 
+        // put total price to sale class
+        sale.setTotalPrice(finalPrice);
 
-        double discountAmount = temp * sale.getDiscount();
-        double finalPrice = temp - discountAmount;
-
-        System.out.println("Discount: " + (sale.getDiscount() * 100) + "%");
-        System.out.println("Final price: $" + finalPrice);
-
+        return String.format("Total price: $%.2f%nDiscount: %.0f%%%nFinal price: $%.2f",
+                total, sale.getDiscount() * 100, finalPrice);
     }
 
     public void getAllSalesItems() {
