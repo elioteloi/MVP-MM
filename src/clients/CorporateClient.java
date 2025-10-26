@@ -4,9 +4,11 @@ public class CorporateClient extends Client{
 
     private String cnpj;
 
-    public CorporateClient(int id, String name, String cellphone, Category categoria, String cnpj) {
-        super(id, name, cellphone, categoria);
-
+    public CorporateClient(int id, String name, String cellphone, Category category, String cnpj) {
+        super(id, name, cellphone, category);
+        if (name == null || cellphone == null || category == null || cnpj == null) {
+            throw new RuntimeException("incomplete data");
+        }
         this.cnpj = cnpj;
     }
 

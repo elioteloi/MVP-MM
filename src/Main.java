@@ -11,7 +11,7 @@ import sales.SalesService;
 public class Main {
     public static void main(String[] args) {
 
-        // instanciate clients
+        // instantiate clients
         CorporateClient corporateClient = new CorporateClient(1, "marc", "48980080", Category.SILVER, "32432434");
 
         IndiviualClient indiviualClient = new IndiviualClient(2, "john", "3243254253", Category.BRONZE, "32243322332");
@@ -22,19 +22,16 @@ public class Main {
         clientService.addClient(indiviualClient);
 
         // get a client
-//        System.out.println(clientService.getClient(1));
+        System.out.println(clientService.getClient(2));
 
         // edit the client
-//        System.out.println(clientService.editClient(1, "Alice", "999999", Category.GOLD));
-
-        // get one client
-//        System.out.println(clientService.getClient(1));
+        System.out.println(clientService.editClient(1, "Alice", "999999", Category.GOLD));
 
         // list all the clients
-//        clientService.listClient();
+        clientService.listClient();
 
 // ------------------------------------------------------------------------------------------------------------//
-        // instanciate products
+        // instantiate products
         ProductService productService = new ProductService();
         Product product1 = new Product(1,"apple", "2323231", 20.00, 10.00, 10);
 
@@ -44,14 +41,14 @@ public class Main {
         productService.addProduct(product2);
 
         // edit product
-//         System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
+         System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
 
         //list all products
-//         productService.listProduct();
+         productService.listProduct();
 
 
 // ------------------------------------------------------------------------------------------------------------//
-
+//        // instantiate sale
         // create discount
         DiscountFidelity discountFidelity = new DiscountFidelity(Category.BRONZE, 10);
 
@@ -69,13 +66,13 @@ public class Main {
 
 
         // put product service to sale service
-        SalesService salesService = new SalesService(productService);
+        SalesService salesService = new SalesService(productService, clientService);
 
         // add new sale
         System.out.println(salesService.addSale(sale1));
 
         // get all sales items
-//        salesService.getAllSalesItems();
+        salesService.getAllSalesItems();
 
 
     }

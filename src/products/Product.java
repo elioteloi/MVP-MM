@@ -10,6 +10,14 @@ public class Product {
     private int stock;
 
     public Product(int id, String name, String barCode, double price, double averageCost, int stock) {
+        if (name == null || barCode == null) {
+            throw new RuntimeException("incomplete data");
+        }
+
+        if (id < 1 || price < 0 || averageCost < 0 || stock < 0){
+            throw new RuntimeException("data cannot be negative");
+        }
+
         this.id = id;
         this.name = name;
         this.barCode = barCode;

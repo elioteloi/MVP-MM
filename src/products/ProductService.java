@@ -16,25 +16,44 @@ public class ProductService {
 
     public void addProduct(Product product) {
         if (this.products.containsKey(product.getId())) {
-            throw new RuntimeException("ID do cliente jah existe no cadastro");
+            throw new RuntimeException("ID of the product already exist");
         }
         this.products.put(product.getId(), product);
     }
 
     public Product getProduct(int id) {
-        return this.products.get(id);
+        Product p = this.products.get(id);
+
+        if (p == null) {
+            throw new RuntimeException("Product doesn't exist");
+        }
+        return p;
     }
 
 
     public Product editProduct(int id, String name, String barCode, double price, double averageCost, int stock) {
-        this.products.get(id).setName(name);
-        this.products.get(id).setBarCode(barCode);
-        this.products.get(id).setPrice(price);
-        this.products.get(id).setAverageCost(averageCost);
-        this.products.get(id).setStock(stock);
+        Product p = this.products.get(id);
+
+        if (p == null) {
+            throw new RuntimeException("Product doesn't exist");
+        }
+        if (name == null || barCode == null) {
+            throw new RuntimeException("incomplete data");
+        }
+
+        if (price < 0 || averageCost < 0 || stock < 0){
+            throw new RuntimeException("data cannot be negative");
+
+        }
+
+        p.setName(name);
+        p.setBarCode(barCode);
+        p.setPrice(price);
+        p.setAverageCost(averageCost);
+        p.setStock(stock);
 
 
-        return this.products.get(id);
+        return p;
     }
 
     public void listProduct() {

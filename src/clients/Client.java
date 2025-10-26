@@ -10,6 +10,12 @@ public abstract class Client {
     private Category category;
 
     public Client(int id, String name, String cellphone, Category category) {
+        if (name == null || name.isBlank()) {
+            throw new RuntimeException("Dados incompletos: nome não pode ser vazio");
+        }
+        if (cellphone == null || cellphone.isBlank()) {
+            throw new RuntimeException("Dados incompletos: telefone não pode ser vazio");
+        }
         this.id = id;
         this.name = name;
         this.cellphone = cellphone;

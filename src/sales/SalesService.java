@@ -1,5 +1,7 @@
 package sales;
 
+import clients.Client;
+import clients.ClientService;
 import products.Product;
 import products.ProductService;
 
@@ -9,13 +11,23 @@ import java.util.Map;
 public class SalesService {
     public final Map<Integer, Sale> sales;
     private final ProductService productService;
+    private final ClientService clientService;
 
-    public SalesService(ProductService productService) {
+    public SalesService(ProductService productService, ClientService clientService) {
         this.sales = new HashMap<>();
         this.productService = productService;
+        this.clientService = clientService;
     }
 
     public String addSale(Sale sale) {
+
+
+        Client client = clientService.getClient(sale.getClient().getId());
+        // check if client exist
+         if (client == null) {
+                throw new RuntimeException("Client doesn't exist");
+            }
+
         double total = 0.0;
         if (this.sales.containsKey(sale.getId())) {
             throw new RuntimeException("ID of the sale already exist");
@@ -29,7 +41,8 @@ public class SalesService {
             if (product.getStock() < item.getQuantity()) {
                     throw new RuntimeException("Not enough stock for product: " + product.getName());
             }
-            // substract the quantity with the stock
+
+            // subtract the quantity with the stock
             int totalStockAfterSell = product.getStock() - item.getQuantity();
             // edit the new product with the new stock
             productService.editProduct(product.getId(),product.getName(), product.getBarCode(), product.getPrice(), product.getAverageCost(), totalStockAfterSell);

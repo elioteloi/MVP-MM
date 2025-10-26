@@ -15,6 +15,15 @@ public class Sale {
         private double totalPrice;
 
         public Sale(int id, Client client, SalesItems[] salesItemsArray, double discount, double totalPrice) {
+
+            if (client == null || salesItemsArray == null) {
+                throw new RuntimeException("incomplete data");
+            }
+
+            if (id < 1 || discount < 0 || totalPrice < 0){
+                throw new RuntimeException("data cannot be negative");
+            }
+
             this.id = id;
             this.dataHora = LocalDateTime.now();
             this.client = client;

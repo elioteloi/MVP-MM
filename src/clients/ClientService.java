@@ -22,15 +22,29 @@ public class ClientService {
 
 
     public Client getClient(int id) {
+
+        Client c = this.client.get(id);
+        if (c == null) {
+            throw new RuntimeException("Client doesn't exist");
+        }
         return this.client.get(id);
     }
 
     public Client editClient(int id, String name, String cellphone, Category category) {
-        this.client.get(id).setName(name);
-        this.client.get(id).setCellphone(cellphone);
-        this.client.get(id).setCategory(category);
+        Client c = this.client.get(id);
 
-        return  this.client.get(id);
+        if (c == null) {
+            throw new RuntimeException("Client doesn't exist");
+        }
+        if (name == null || cellphone == null || category == null) {
+            throw new RuntimeException("incomplete data");
+        }
+
+        c.setName(name);
+        c.setCellphone(cellphone);
+        c.setCategory(category);
+
+        return  c;
     }
 
     public void listClient () {

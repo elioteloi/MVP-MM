@@ -7,6 +7,14 @@ public class SalesItems {
     private double price;
 
     public SalesItems(int id, String name, int quantity, double price) {
+        if (name == null) {
+            throw new RuntimeException("incomplete data");
+        }
+
+        if (id < 1 || quantity < 0 || price < 0){
+            throw new RuntimeException("data cannot be negative");
+        }
+
         this.id = id;
         this.name = name;
         this.quantity = quantity;
