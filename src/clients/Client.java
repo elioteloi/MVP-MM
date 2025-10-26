@@ -1,25 +1,27 @@
 package clients;
 
+import java.util.Scanner;
+
 public abstract class Client {
 
     private int id;
     private String name;
     private String cellphone;
-    private Category categoria;
+    private Category category;
 
-    public Client(int id, String name, String cellphone, Category categoria) {
+    public Client(int id, String name, String cellphone, Category category) {
         this.id = id;
         this.name = name;
         this.cellphone = cellphone;
-        this.categoria = categoria;
+        this.category = category;
     }
 
-    public Category getCategoria() {
-        return categoria;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoria(Category categoria) {
-        this.categoria = categoria;
+    public void setCategory(Category categoria) {
+        this.category = categoria;
     }
 
     public String getCellphone() {
@@ -52,7 +54,7 @@ public abstract class Client {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", cellphone='" + cellphone + '\'' +
-                ", categoria=" + categoria +
+                ", categoria=" + category +
                 '}';
     }
 }

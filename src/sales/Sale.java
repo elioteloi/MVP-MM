@@ -3,17 +3,25 @@ package sales;
 import clients.Client;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Sale {
-    private int id;
-    private LocalDateTime dataHora;
-    private Client client;
+        private int id;
+        private LocalDateTime dataHora;
+        private Client client;
+        public ArrayList<SalesItems> salesItems = new ArrayList<>();
+        private double discount;
+        private double totalPrice;
 
-    public Sale(int id, LocalDateTime dataHora, Client client) {
-        this.id = id;
-        this.dataHora = dataHora;
-        this.client = client;
-    }
+        public Sale(int id, Client client, SalesItems[] salesItemsArray, double discount, double totalPrice) {
+            this.id = id;
+            this.dataHora = LocalDateTime.now();
+            this.client = client;
+            this.salesItems.addAll(Arrays.asList(salesItemsArray));
+            this.discount = discount;
+            this.totalPrice = totalPrice;
+        }
 
     public int getId() {
         return id;
@@ -39,8 +47,36 @@ public class Sale {
         this.client = client;
     }
 
+    public void setSalesItems(SalesItems[] salesItemsArray) {
+        this.salesItems.addAll(Arrays.asList(salesItemsArray));
+    }
 
+    public double getDiscount() {
+        return discount;
+    }
 
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", dataHora=" + dataHora +
+                ", client=" + client +
+                ", salesItems=" + salesItems +
+                ", discount=" + discount +
+                ", TotalPrice=" + totalPrice +
+                '}';
+    }
 }
 

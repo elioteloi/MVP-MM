@@ -1,48 +1,83 @@
 import clients.*;
 import products.Product;
 import products.ProductService;
+import sales.DiscountFidelity;
+import sales.Sale;
+import sales.SalesItems;
+import sales.SalesService;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
 
-//        Client client = new Client(1, "John", "123456789", Category.GOLD);
-
+        // instanciate clients
         CorporateClient corporateClient = new CorporateClient(1, "marc", "48980080", Category.SILVER, "32432434");
 
-        System.out.println(corporateClient);
-
         IndiviualClient indiviualClient = new IndiviualClient(2, "john", "3243254253", Category.BRONZE, "32243322332");
-
-        System.out.println(indiviualClient);
 
         ClientService clientService = new ClientService();
 
         clientService.addClient(corporateClient);
         clientService.addClient(indiviualClient);
 
-        System.out.println(clientService.getClient(1));
+        // get a client
+//        System.out.println(clientService.getClient(1));
 
+        // edit the client
+//        System.out.println(clientService.editClient(1, "Alice", "999999", Category.GOLD));
+
+        // get one client
+//        System.out.println(clientService.getClient(1));
+
+        // list all the clients
+//        clientService.listClient();
+
+// ------------------------------------------------------------------------------------------------------------//
+        // instanciate products
         ProductService productService = new ProductService();
         Product product1 = new Product(1,"apple", "2323231", 20.00, 10.00, 10);
 
-        productService.addProduct(product1);
-
         Product product2 = new Product(2,"banana", "787863", 10.00, 5.00, 20);
 
-//        System.out.println(productService.getProduct(1));
-
+        productService.addProduct(product1);
         productService.addProduct(product2);
 
-//        System.out.println(productService.getProduct(2));
+        // edit product
+//         System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
 
-        System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
+//         productService.listProduct();
 
-        productService.listProduct();
-        // edicão produto
-        // listagem product
         // registro no estoque
 
+
+// ------------------------------------------------------------------------------------------------------------//
+
+        DiscountFidelity discountFidelity = new DiscountFidelity(Category.BRONZE, 10);
+
+
+        SalesItems salesItems1 = new SalesItems(1, "apple", 1, 20.00);
+        SalesItems salesItems2 = new SalesItems(2, "banana", 1, 10.00);
+
+
+        SalesItems[] itemsArray1 = new SalesItems[] { salesItems1, salesItems2 };
+        Sale sale1 = new Sale(1, corporateClient, itemsArray1, discountFidelity.discount(Category.BRONZE), 20);
+
+
+        SalesService salesService = new SalesService(productService);
+
+        // add new sale
+        salesService.addSale(sale1);
+
+
+        // get all sales items
+//        salesService.getAllSalesItems();
+
+//        productService.listProduct();
+
+
     }
+
+
+
 }
