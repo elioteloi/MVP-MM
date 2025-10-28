@@ -14,7 +14,11 @@ public class Main {
         // instantiate clients
         CorporateClient corporateClient = new CorporateClient(1, "marc", "48980080", Category.SILVER, "32432434");
 
-        IndiviualClient indiviualClient = new IndiviualClient(2, "john", "3243254253", Category.BRONZE, "32243322332");
+        IndividualClient indiviualClient = new IndividualClient(2, "john", "3243254253", Category.BRONZE, "32243322332");
+
+        // without cpf or CNPJ
+//        IndividualClient indiviualClient = new IndividualClient(2, "john", "3243254253", Category.BRONZE, "32243322332");
+//        CorporateClient corporateClient = new CorporateClient(1, "marc", "48980080", Category.SILVER, "32432434");
 
         ClientService clientService = new ClientService();
 
@@ -41,10 +45,10 @@ public class Main {
         productService.addProduct(product2);
 
         // edit product
-         System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
+        System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
 
         //list all products
-         productService.listProduct();
+        productService.listProduct();
 
 
 // ------------------------------------------------------------------------------------------------------------//
@@ -76,7 +80,6 @@ public class Main {
 
 
     }
-
 
 
 }
