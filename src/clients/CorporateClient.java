@@ -4,6 +4,8 @@ public class CorporateClient extends Client{
 
     private String cnpj;
 
+
+
     public CorporateClient(int id, String name, String cellphone, Category category, String cnpj) {
         super(id, name, cellphone, category);
         if (name == null || cellphone == null || category == null) {
@@ -14,6 +16,10 @@ public class CorporateClient extends Client{
 
     public CorporateClient(int id, String name, String cellphone, Category category) {
         this(id, name, cellphone, category, null);
+    }
+
+    public String getCnpj() {
+        return cnpj;
     }
 
     @Override

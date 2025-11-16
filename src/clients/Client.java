@@ -1,7 +1,5 @@
 package clients;
 
-import java.util.Scanner;
-
 public abstract class Client {
 
     private int id;
@@ -16,6 +14,7 @@ public abstract class Client {
         if (cellphone == null || cellphone.isBlank()) {
             throw new RuntimeException("Dados incompletos: telefone não pode ser vazio");
         }
+
         this.id = id;
         this.name = name;
         this.cellphone = cellphone;

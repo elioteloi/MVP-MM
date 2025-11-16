@@ -1,5 +1,8 @@
     package clients;
 
+    import java.sql.PreparedStatement;
+    import java.sql.SQLException;
+
     public class IndividualClient extends Client{
         private String cpf;
 
@@ -13,6 +16,10 @@
         }
         public IndividualClient(int id, String name, String cellphone, Category category) {
             this(id, name, cellphone, category, null);
+        }
+
+        public String getCpf() {
+            return cpf;
         }
 
         @Override

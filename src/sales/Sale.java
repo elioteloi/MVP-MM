@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Sale {
         private int id;
         private LocalDateTime dataHora;
-        private Client client;
+        private Client client;  
         public ArrayList<SalesItems> salesItems = new ArrayList<>();
         private double discount;
         private double totalPrice;

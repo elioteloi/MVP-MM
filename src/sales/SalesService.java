@@ -22,11 +22,11 @@ public class SalesService {
     public String addSale(Sale sale) {
 
 
-        Client client = clientService.getClient(sale.getClient().getId());
-        // check if client exist
-         if (client == null) {
-                throw new RuntimeException("Client doesn't exist");
-            }
+//        Client client = clientService.getClient(sale.getClient().getId());
+//        // check if client exist
+//         if (client == null) {
+//                throw new RuntimeException("Client doesn't exist");
+//            }
 
         double total = 0.0;
         if (this.sales.containsKey(sale.getId())) {
@@ -36,6 +36,7 @@ public class SalesService {
 
         for (SalesItems item : sale.salesItems) {
             Product product = productService.getProduct(item.getId());
+
 
 
             if (product.getStock() < item.getQuantity()) {
@@ -49,6 +50,8 @@ public class SalesService {
 
             // give the total of the sale
             total = total + item.getPrice() * item.getQuantity();
+
+            System.out.println("Item: " + item);
         }
 
         double discountAmount = total * sale.getDiscount();
@@ -56,6 +59,8 @@ public class SalesService {
 
         // put total price to sale class
         sale.setTotalPrice(finalPrice);
+
+
 
         return String.format("Total price: $%.2f%nDiscount: %.0f%%%nFinal price: $%.2f",
                 total, sale.getDiscount() * 100, finalPrice);
