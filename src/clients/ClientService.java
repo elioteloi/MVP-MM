@@ -71,6 +71,8 @@ public class ClientService {
                             rs.getString(6)
                     );
                 }
+            System.out.println("User " + id + " successfully selected");
+
         } catch (SQLException e) {
             System.err.println("Coundn't select client in database: " + e.getMessage());
 
@@ -95,7 +97,7 @@ public class ClientService {
             stmt.setInt(4, id);
 
             stmt.executeUpdate();
-            System.out.println("User successfully edited");
+            System.out.println("User " + id + " successfully edited");
 
         } catch (SQLException e) {
             System.err.println("Coundn't edit client in database: " + e.getMessage());
@@ -122,7 +124,11 @@ public class ClientService {
                         rs.getString(5),
                         rs.getString(6)
                 ));
+
             }
+
+            System.out.println("All users successfully selected");
+
         } catch (SQLException e) {
             System.err.println("Coundn't select all the clients in database: " + e.getMessage());
 

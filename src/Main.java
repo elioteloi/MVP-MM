@@ -49,22 +49,24 @@ public class Main {
         clientService.listClients();
 
 //// ------------------------------------------------------------------------------------------------------------//
-//        // instantiate products
-//        ProductService productService = new ProductService();
-//        Product product1 = new Product(1,"apple", "2323231", 20.00, 10.00, 10);
-//
-//        Product product2 = new Product(2,"banana", "787863", 10.00, 5.00, 20);
-//
-//        productService.addProduct(product1);
-//        productService.addProduct(product2);
-//
-//        // edit product
-//        System.out.println(productService.editProduct(2, "orange", "333", 2.00, 1.50, 50));
-//
-//        //list all products
-//        productService.listProduct();
-//
-//
+        // instantiate products
+        ProductService productService = new ProductService();
+        Product product1 = new Product(1,"apple", "2323231", 20.00, 10.00, 10);
+
+        Product product2 = new Product(2,"banana", "787863", 10.00, 5.00, 20);
+
+        productService.addProduct(product1);
+        productService.addProduct(product2);
+
+        System.out.println(productService.getProduct(1));
+        // edit product
+        productService.editProduct(2, "orange", "333", 2.00, 1.50, 50);
+
+        productService.deleteProduct(1);
+        //list all products
+        productService.listProduct();
+
+
 //// ------------------------------------------------------------------------------------------------------------//
 ////        // instantiate sale
 //        // create discount
