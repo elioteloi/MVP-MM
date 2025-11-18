@@ -56,7 +56,7 @@ public class Main {
 
 //// ------------------------------------------------------------------------------------------------------------//
         // instantiate products
-//        ProductService productService = new ProductService();
+        ProductService productService = new ProductService();
 //        Product product1 = new Product(1,"apple", "2323231", 20.00, 10.00, 10);
 //
 //        Product product2 = new Product(2,"banana", "787863", 10.00, 5.00, 20);
@@ -66,13 +66,13 @@ public class Main {
 //
 //        System.out.println("the product: " + productService.getProduct(1));
 //
-//        Product pdt1 = productService.getProduct(1);
-//
-//        Product pdt2 = productService.getProduct(2);
-//
-//        System.out.println("Name: " + pdt1.getName());
-//
-//        System.out.println("Name: " + pdt2.getName());
+        Product pdt1 = productService.getProduct(1);
+
+        Product pdt2 = productService.getProduct(2);
+
+        System.out.println("Name: " + pdt1.getName());
+
+        System.out.println("Name: " + pdt2.getName());
 
 //        // edit product
 //        productService.editProduct(2, "orange", "333", 2.00, 1.50, 50);
@@ -83,33 +83,33 @@ public class Main {
 
 
 //// ------------------------------------------------------------------------------------------------------------//
-////        // instantiate sale
-//        // create discount
-//        DiscountFidelity discountFidelity = new DiscountFidelity(Category.BRONZE, 10);
+        // instantiate sale
+        // create discount
+        DiscountFidelity discountFidelity = new DiscountFidelity(c1.getCategory(), 10);
 //
 //
 //        // create new item for sale
-//        SalesItems salesItems1 = new SalesItems(1, "apple", 10, 20.00);
-//        SalesItems salesItems2 = new SalesItems(2, "banana", 1, 10.00);
+        SalesItems salesItems1 = new SalesItems(1, pdt1.getName(), 10, 20.00);
+        SalesItems salesItems2 = new SalesItems(2, pdt2.getName(), 1, 10.00);
 //
 //
 //        // create an array to put the items
-////        SalesItems[] itemsArray1 = new SalesItems[] { salesItems1, salesItems2 };
+        SalesItems[] itemsArray1 = new SalesItems[] { salesItems1, salesItems2 };
 //        SalesItems[] itemsArray1 = new SalesItems[0];
 //
 //        // create the sale
-//        Sale sale1 = new Sale(1, corporateClient, itemsArray1, discountFidelity.discount(Category.BRONZE), 20);
+        Sale sale1 = new Sale(1, corporateClient, itemsArray1, discountFidelity.discount(c1.getCategory()), 20);
 //
 //
 //        // put product service to sale service
-//        SalesService salesService = new SalesService(productService, clientService);
+        SalesService salesService = new SalesService(productService, clientService);
 //
 //
-//        System.out.println();
-//        System.out.println();
-//        System.out.println("//-----------------------------------------------------------//");
+        System.out.println();
+        System.out.println();
+        System.out.println("//-----------------------------------------------------------//");
 //        // add new sale
-//        System.out.println(salesService.addSale(sale1));
+        System.out.println(salesService.addSale(sale1));
 //
 //        // get all sales items
 ////        salesService.getAllSalesItems();
