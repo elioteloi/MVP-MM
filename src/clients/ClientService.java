@@ -17,36 +17,53 @@ public class ClientService {
         this.client = new HashMap<>();
     }
 
-    public void addClient(Client client) {
+    public String addClient(Client client) {
         conn = DBConnection.getConnection();
 
-        String insertSQL = "INSERT INTO userMM (name, cellphone, category, cpf, cnpj) VALUES (?, ?, ?, ?, ?);";
-        try (PreparedStatement stmt = conn.prepareStatement(insertSQL);) {
+        String selectSQL = "SELECT name FROM userMM WHERE name = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(selectSQL)) {
             stmt.setString(1, client.getName());
-            stmt.setString(2, client.getCellphone());
-            stmt.setString(3, client.getCategory().toString());
 
-            String cpf = null;
-            String cnpj = null;
+            ResultSet rs = stmt.executeQuery();
 
-            if (client instanceof IndividualClient) {
-                cpf = ((IndividualClient) client).getCpf();
+            if (rs.next()) {
+                System.out.println("there is already a user");
+            } else {
+                String insertSQL = "INSERT INTO userMM (name, cellphone, category, cpf, cnpj) VALUES (?, ?, ?, ?, ?);";
+                try (PreparedStatement stmtIN = conn.prepareStatement(insertSQL);) {
+                    stmtIN.setString(1, client.getName());
+                    stmtIN.setString(2, client.getCellphone());
+                    stmtIN.setString(3, client.getCategory().toString());
+
+                    String cpf = null;
+                    String cnpj = null;
+
+                    if (client instanceof IndividualClient) {
+                        cpf = ((IndividualClient) client).getCpf();
+                    }
+
+                    if (client instanceof CorporateClient) {
+                        cnpj = ((CorporateClient) client).getCnpj();
+                    }
+
+                    stmtIN.setString(4, cpf);
+                    stmtIN.setString(5, cnpj);
+
+                    stmtIN.execute();
+                    System.out.println("User successfully created");
+
+                } catch (SQLException e) {
+                    System.err.println("Coundn't insert in database: " + e.getMessage());
+                }
+
+                return "{}";
+
             }
-
-            if (client instanceof CorporateClient) {
-                cnpj = ((CorporateClient) client).getCnpj();
-            }
-
-            stmt.setString(4, cpf);
-            stmt.setString(5, cnpj);
-
-            stmt.execute();
-            System.out.println("User successfully created");
-
         } catch (SQLException e) {
-            System.err.println("Coundn't insert in database: " + e.getMessage());
+            System.err.println("Coundn't select in database: " + e.getMessage());
         }
 
+        return "{}";
 
     }
 

@@ -31,40 +31,41 @@ public class Main {
 //        IndividualClient indiviualClient = new IndividualClient(2, "john", "3243254253", Category.BRONZE, "32243322332");
 
         // without cpf or CNPJ
-        IndividualClient indiviualClient = new IndividualClient(2, "john", "3243254253", Category.BRONZE);
-        CorporateClient corporateClient = new CorporateClient(1, "marc", "48980080", Category.SILVER);
+        IndividualClient indiviualClient = new IndividualClient(2, "dudu", "3243254253", Category.BRONZE);
+//        CorporateClient corporateClient = new CorporateClient(1, "marc", "48980080", Category.SILVER);
 
         ClientService clientService = new ClientService();
 
+        clientService.addClient(indiviualClient);
+
 //        clientService.addClient(corporateClient);
-//        clientService.addClient(indiviualClient);
 
-        // get a client
-        System.out.println(clientService.getClient(2));
-
-        // edit the client
-        System.out.println(clientService.editClient(1, "Alice", "999999", Category.GOLD));
-
-        // list all the clients
-        clientService.listClients();
+//        // get a client
+//        System.out.println(clientService.getClient(2));
+//
+//        // edit the client
+//        System.out.println(clientService.editClient(1, "Alice", "999999", Category.GOLD));
+//
+//        // list all the clients
+//        clientService.listClients();
 
 //// ------------------------------------------------------------------------------------------------------------//
-        // instantiate products
-        ProductService productService = new ProductService();
-        Product product1 = new Product(1,"apple", "2323231", 20.00, 10.00, 10);
-
-        Product product2 = new Product(2,"banana", "787863", 10.00, 5.00, 20);
-
-        productService.addProduct(product1);
-        productService.addProduct(product2);
-
-        System.out.println(productService.getProduct(1));
-        // edit product
-        productService.editProduct(2, "orange", "333", 2.00, 1.50, 50);
-
-        productService.deleteProduct(1);
-        //list all products
-        productService.listProduct();
+//        // instantiate products
+//        ProductService productService = new ProductService();
+//        Product product1 = new Product(1,"apple", "2323231", 20.00, 10.00, 10);
+//
+//        Product product2 = new Product(2,"banana", "787863", 10.00, 5.00, 20);
+//
+//        productService.addProduct(product1);
+//        productService.addProduct(product2);
+//
+//        System.out.println(productService.getProduct(1));
+//        // edit product
+//        productService.editProduct(2, "orange", "333", 2.00, 1.50, 50);
+//
+//        productService.deleteProduct(1);
+//        //list all products
+//        productService.listProduct();
 
 
 //// ------------------------------------------------------------------------------------------------------------//
