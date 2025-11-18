@@ -59,23 +59,24 @@ public class ProductService {
 
     }
 
-    public String getProduct(int id) {
+    public Product getProduct(int id) {
         conn = DBConnection.getConnection();
 
         String insertSQL = "SELECT * FROM productMM where id = ?";
+        Product p = null;
         try (PreparedStatement stmt = conn.prepareStatement(insertSQL);) {
-            stmt.setInt(1,id);
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return String.format(
-                        "{\"id\": %d, \"name\": \"%s\", \"cellphone\": \"%s\" \"category\": \"%s\" \"cpf\": \"%s\" \"cnpj\": \"%s\"}",
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6)
+                p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("barcode"),
+                        rs.getDouble("price"),
+                        rs.getDouble("averageCost"),
+                        rs.getInt("stock")
                 );
+
             }
             System.out.println("Product " + id + " successfully selected");
             stmt.execute();
@@ -86,7 +87,7 @@ public class ProductService {
         }
 
 
-        return "{}";
+        return p;
     }
 
 

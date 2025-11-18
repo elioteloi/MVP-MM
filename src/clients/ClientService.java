@@ -68,9 +68,10 @@ public class ClientService {
     }
 
 
-    public String getClient(int id) {
+    public Client getClient(int id) {
         conn = DBConnection.getConnection();
 
+        Client c = null;
         String insertSQL = "select * from userMM where id = ?;";
 
         try (PreparedStatement stmt = conn.prepareStatement(insertSQL)) {
@@ -78,14 +79,15 @@ public class ClientService {
 
             ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
-                    return String.format(
-                            "{\"id\": %d, \"name\": \"%s\", \"cellphone\": \"%s\" \"category\": \"%s\" \"cpf\": \"%s\" \"cnpj\": \"%s\"}",
-                            rs.getInt(1),
-                            rs.getString(2),
-                            rs.getString(3),
-                            rs.getString(4),
-                            rs.getString(5),
-                            rs.getString(6)
+                    Category category = Category.valueOf(rs.getString("category"));
+
+                    c = new Client(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("cellphone"),
+                            category
+//                            rs.getString("cpf"),
+//                            rs.getString("cnpj")
                     );
                 }
             System.out.println("User " + id + " successfully selected");
@@ -94,7 +96,7 @@ public class ClientService {
             System.err.println("Coundn't select client in database: " + e.getMessage());
 
         }
-        return "{}";
+        return c;
     }
 
     public String editClient(int id, String name, String cellphone, Category category) {
