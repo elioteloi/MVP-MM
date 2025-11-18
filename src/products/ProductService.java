@@ -25,19 +25,36 @@ public class ProductService {
     public void addProduct(Product product) {
         conn = DBConnection.getConnection();
 
-        String insertSQL = "INSERT INTO productMM (name, barcode, price, averageCost, stock) VALUES (?, ?, ?, ?, ?);";
-        try (PreparedStatement stmt = conn.prepareStatement(insertSQL);) {
-            stmt.setString(1, product.getName());
-            stmt.setString(2, product.getBarCode());
-            stmt.setDouble(3, product.getPrice());
-            stmt.setDouble(4, product.getAverageCost());
-            stmt.setDouble(5, product.getStock());
 
-            stmt.execute();
-            System.out.println("Product successfully created");
+        String selectSQL = "SELECT name FROM productMM WHERE name = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(selectSQL);) {
+            stmt.setString(1, product.getName());
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                System.out.println("there is already a product with this name");
+            } else {
+                String insertSQL = "INSERT INTO productMM (name, barcode, price, averageCost, stock) VALUES (?, ?, ?, ?, ?);";
+                try (PreparedStatement stmtIN = conn.prepareStatement(insertSQL);) {
+                    stmtIN.setString(1, product.getName());
+                    stmtIN.setString(2, product.getBarCode());
+                    stmtIN.setDouble(3, product.getPrice());
+                    stmtIN.setDouble(4, product.getAverageCost());
+                    stmtIN.setDouble(5, product.getStock());
+
+                    stmtIN.execute();
+                    System.out.println("Product successfully created");
+
+                } catch (SQLException e) {
+                    System.err.println("Coundn't insert in database: " + e.getMessage());
+                }
+
+
+            }
 
         } catch (SQLException e) {
-            System.err.println("Coundn't insert in database: " + e.getMessage());
+            System.err.println("Coundn't select in database: " + e.getMessage());
         }
 
     }
