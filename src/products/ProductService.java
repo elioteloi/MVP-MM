@@ -139,7 +139,7 @@ public class ProductService {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 System.out.println( String.format(
-                        "{\"id\": %d, \"name\": \"%s\", \"cellphone\": \"%s\" \"category\": \"%s\" \"cpf\": \"%s\" \"cnpj\": \"%s\"}",
+                        "{\"id\": %d, \"name\": \"%s\", \"barCode\": \"%s\" \"price\": \"%s\" \"average cost\": \"%s\" \"stock\": \"%s\"}",
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
