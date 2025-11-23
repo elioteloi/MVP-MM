@@ -33,7 +33,7 @@ public class ProductService {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                System.out.println("there is already a product with this name");
+                throw new IllegalArgumentException("There is already a product with this name");
             } else {
                 String insertSQL = "INSERT INTO productMM (name, barcode, price, averageCost, stock) VALUES (?, ?, ?, ?, ?);";
                 try (PreparedStatement stmtIN = conn.prepareStatement(insertSQL);) {
@@ -47,7 +47,7 @@ public class ProductService {
                     System.out.println("Product successfully created");
 
                 } catch (SQLException e) {
-                    System.err.println("Coundn't insert in database: " + e.getMessage());
+                    throw new RuntimeException("Database error while adding product", e);
                 }
 
 
@@ -80,7 +80,6 @@ public class ProductService {
             }
             System.out.println("Product " + id + " successfully selected");
             stmt.execute();
-            System.out.println("Product" + id + "successfully edited");
         } catch (SQLException e) {
             System.err.println("Coundn't insert in database: " + e.getMessage());
 
@@ -94,22 +93,39 @@ public class ProductService {
     public void editProduct(int id, String name, String barCode, double price, double averageCost, int stock) {
         conn = DBConnection.getConnection();
 
-        String updateSQL = "UPDATE productMM SET name = ?, barcode = ?, price = ?, averageCost = ?, stock = ? WHERE id = ?";
+        String selectSQL = "SELECT id FROM productMM WHERE id = ?";
 
-        try(PreparedStatement stmt = conn.prepareStatement(updateSQL)) {
-            stmt.setString(1, name);
-            stmt.setString(2, barCode);
-            stmt.setDouble(3, price);
-            stmt.setDouble(4, averageCost);
-            stmt.setInt(5, stock);
-            stmt.setInt(6, id);
+        try (PreparedStatement stmt = conn.prepareStatement(selectSQL)) {
+            stmt.setInt(1, id);
 
-            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
 
-            System.out.println("Product " + id + " successfully edited");
+            if(rs.next()) {
+                String updateSQL = "UPDATE productMM SET name = ?, barcode = ?, price = ?, averageCost = ?, stock = ? WHERE id = ?";
+
+                try(PreparedStatement stmtIN = conn.prepareStatement(updateSQL)) {
+                    stmtIN.setString(1, name);
+                    stmtIN.setString(2, barCode);
+                    stmtIN.setDouble(3, price);
+                    stmtIN.setDouble(4, averageCost);
+                    stmtIN.setInt(5, stock);
+                    stmtIN.setInt(6, id);
+
+                    stmtIN.execute();
+
+                    System.out.println("Product " + id + " successfully edited");
+
+                } catch (SQLException e) {
+                    System.err.println("Coundn't update in database: " + e.getMessage());
+
+                }
+            }  else {
+                System.out.println("there is no product with this id: " + id);
+            }
+
 
         } catch (SQLException e) {
-            System.err.println("Coundn't update in database: " + e.getMessage());
+            System.err.println("Coundn't select in database: " + e.getMessage());
         }
     }
 
@@ -129,24 +145,25 @@ public class ProductService {
     }
 
 
-    public void listProduct() {
+    public List<Product> listProduct() {
         conn = DBConnection.getConnection();
 
         String insertSQL = "SELECT * FROM productMM";
-
+        Product p = null;
+        List<Product> products = new ArrayList<>();
         try(PreparedStatement stmt = conn.prepareStatement(insertSQL)) {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.println( String.format(
-                        "{\"id\": %d, \"name\": \"%s\", \"barCode\": \"%s\" \"price\": \"%s\" \"average cost\": \"%s\" \"stock\": \"%s\"}",
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6)
-                ));
+                p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("barcode"),
+                        rs.getDouble("price"),
+                        rs.getDouble("averageCost"),
+                        rs.getInt("stock")
+                );
+                products.add(p);
             }
             System.out.println("All products successfully selected");
 
@@ -154,7 +171,7 @@ public class ProductService {
             System.err.println("Coundn't select all the products in database: " + e.getMessage());
         }
 
-
+        return products;
     }
 
 
