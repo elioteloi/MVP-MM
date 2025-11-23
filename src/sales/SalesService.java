@@ -30,7 +30,9 @@ public class SalesService {
 
     public String addSale(Sale sale) {
 
-
+        if (sale.salesItems == null || sale.salesItems.size() == 0) {
+            throw new IllegalArgumentException("Cannot process a sale with no products.");
+        }
 
 
         double total = 0.0;
@@ -117,6 +119,8 @@ public class SalesService {
         return String.format("Total price: $%.2f%nDiscount: %.0f%%%nFinal price: $%.2f",
                 total, sale.getDiscount() * 100, finalPrice);
     }
+
+
     public List<Sale> listSale() {
         conn = DBConnection.getConnection();
 

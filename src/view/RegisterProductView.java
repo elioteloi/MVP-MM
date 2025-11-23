@@ -111,13 +111,13 @@ public class RegisterProductView extends JFrame {
                     "Invalid Input",
                     JOptionPane.WARNING_MESSAGE);
 
-        } catch (IllegalArgumentException ex) {  // from duplicate name or validations
+        } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this,
                     ex.getMessage(),
                     "Validation Error",
                     JOptionPane.WARNING_MESSAGE);
 
-        } catch (RuntimeException ex) {  // database or unexpected errors
+        } catch (RuntimeException ex) {
             JOptionPane.showMessageDialog(this,
                     "Error: " + ex.getMessage(),
                     "Database Error",

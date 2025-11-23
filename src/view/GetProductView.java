@@ -53,27 +53,49 @@ public class GetProductView extends JFrame {
     }
 
     private void createItem() {
-        Integer id = Integer.parseInt(this.tfId.getText());
 
-        JFrame frame = new JFrame("Data Table");
 
-        String[] columnNames = {"Id", "Name", "Bar code", "Price", "Average cost", "Stock"};
+        try {
+            Integer id = Integer.parseInt(this.tfId.getText());
 
-        ProductService productService = new ProductService();
+            JFrame frame = new JFrame("Data Table");
 
-        Product p = productService.getProduct(id);
+            String[] columnNames = {"Id", "Name", "Bar code", "Price", "Average cost", "Stock"};
 
-        Object[][] data = {
-                { p.getId(), p.getName(), p.getBarCode(), p.getPrice(), p.getAverageCost(), p.getStock() }
-        };
+            ProductService productService = new ProductService();
 
-        JTable table = new JTable(data, columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
+            Product p = productService.getProduct(id);
 
-        frame.add(scrollPane);
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+            Object[][] data = {
+                    { p.getId(), p.getName(), p.getBarCode(), p.getPrice(), p.getAverageCost(), p.getStock() }
+            };
+
+            JTable table = new JTable(data, columnNames);
+            JScrollPane scrollPane = new JScrollPane(table);
+
+            frame.add(scrollPane);
+            frame.setSize(400, 300);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter valid numbers for id.",
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private class ButtonSaveHandler implements ActionListener {

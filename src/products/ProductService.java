@@ -54,7 +54,7 @@ public class ProductService {
             }
 
         } catch (SQLException e) {
-            System.err.println("Coundn't select in database: " + e.getMessage());
+            throw new RuntimeException("Coundn't select in database:", e);
         }
 
     }
@@ -77,12 +77,13 @@ public class ProductService {
                         rs.getInt("stock")
                 );
 
+            } else {
+                throw new IllegalArgumentException("There is no product with this id");
             }
             System.out.println("Product " + id + " successfully selected");
             stmt.execute();
         } catch (SQLException e) {
-            System.err.println("Coundn't insert in database: " + e.getMessage());
-
+            throw new RuntimeException("Coundn't select in database:", e);
         }
 
 
@@ -116,32 +117,45 @@ public class ProductService {
                     System.out.println("Product " + id + " successfully edited");
 
                 } catch (SQLException e) {
-                    System.err.println("Coundn't update in database: " + e.getMessage());
-
+                    throw new RuntimeException("Coundn't update in database: ", e);
                 }
             }  else {
-                System.out.println("there is no product with this id: " + id);
+                throw new IllegalArgumentException("There is no product with this id");
             }
 
 
         } catch (SQLException e) {
-            System.err.println("Coundn't select in database: " + e.getMessage());
+            throw new RuntimeException("Coundn't select in database:", e);
         }
     }
 
     public void deleteProduct(int id) {
-        String deleteSQL = "DELETE FROM productMM where id = ?";
+        conn = DBConnection.getConnection();
 
-        try(PreparedStatement stmt = conn.prepareStatement(deleteSQL)) {
-            stmt.setInt(1, id);
-            stmt.execute();
+     String selectSQL = "SELECT id FROM productMM WHERE id = ?";
 
-            System.out.println("Product " + id + " successfully deleted");
+     try(PreparedStatement stmt = conn.prepareStatement(selectSQL)) {
+         stmt.setInt(1, id);
+         ResultSet rs = stmt.executeQuery();
 
-        } catch (SQLException e) {
-            System.err.println("Coundn't delete products in database: " + e.getMessage());
+         if (rs.next()) {
+             String deleteSQL = "DELETE FROM productMM where id = ?";
 
-        }
+             try(PreparedStatement stmtDE = conn.prepareStatement(deleteSQL)) {
+                 stmtDE.setInt(1, id);
+                 stmtDE.execute();
+
+                 System.out.println("Product " + id + " successfully deleted");
+
+             } catch (SQLException e) {
+                 throw new RuntimeException("Coundn't delete products in database: ", e);
+             }
+         } else {
+             throw new IllegalArgumentException("There is no product with this id");
+         }
+     } catch (SQLException e) {
+         throw new RuntimeException("Coudn't select in database:", e);
+     }
     }
 
 
@@ -168,7 +182,7 @@ public class ProductService {
             System.out.println("All products successfully selected");
 
         } catch (SQLException e) {
-            System.err.println("Coundn't select all the products in database: " + e.getMessage());
+            throw new RuntimeException("Coundn't select all the products in database:  ", e);
         }
 
         return products;

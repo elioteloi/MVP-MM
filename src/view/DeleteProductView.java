@@ -57,14 +57,39 @@ public class DeleteProductView extends JFrame {
     }
 
     private void createItem() {
-        Integer id = Integer.parseInt(this.tfId.getText());
 
 
-        ProductService productService = new ProductService();
+        try {
+            Integer id = Integer.parseInt(this.tfId.getText());
 
-//
-        productService.deleteProduct(id);
-        JOptionPane.showMessageDialog(null, "deleted successfully: " + id);
+
+            ProductService productService = new ProductService();
+
+            productService.deleteProduct(id);
+
+            JOptionPane.showMessageDialog(this,
+                    "Deleted successfully:\n" + id,
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter valid numbers for id.",
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private class ButtonSaveHandler implements ActionListener {

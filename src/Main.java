@@ -44,7 +44,7 @@ public class Main {
 //
 //        clientService.addClient(indiviualClient);
 //
-        clientService.addClient(corporateClient);
+//        clientService.addClient(corporateClient);
 //
 //        // get a client
 
@@ -107,12 +107,11 @@ public class Main {
 ////
 ////        // create an array to put the items
         SalesItems[] itemsArray1 = new SalesItems[] { salesItems1, salesItems2 };
-////        SalesItems[] itemsArray1 = new SalesItems[0];
+//        SalesItems[] itemsArray1 = new SalesItems[0];
 ////
 ////        // create the sale
         Sale sale1 = new Sale(1, corporateClient, itemsArray1, discountFidelity.discount(corporateClient.getCategory()), 20);
 
-//        System.out.println(sale1.getDataHora());
 ////
 ////
 ////        // put product service to sale service
@@ -123,10 +122,10 @@ public class Main {
 //        System.out.println();
 //        System.out.println("//-----------------------------------------------------------//");
 ////        // add new sale
-//        System.out.println(salesService.addSale(sale1));
+        System.out.println(salesService.addSale(sale1));
 ////
 ////        // get all sales items
-        System.out.println(salesService.listSale());
+//        System.out.println(salesService.listSale());
 
     }
 

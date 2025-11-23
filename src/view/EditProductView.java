@@ -97,18 +97,43 @@ public class EditProductView extends JFrame {
     }
 
     private void createItem() {
-        Integer id = Integer.parseInt(this.tfId.getText());
-        String name = this.tfName.getText();
-        String barCode = this.tfBarCode.getText();
-        Double price = Double.parseDouble(this.tfPrice.getText());
-        Double averageCost = Double.parseDouble(this.tfAverageCost.getText());
-        Integer stock = Integer.parseInt(this.tfStock.getText());
 
-        ProductService productService = new ProductService();
 
-        productService.editProduct(id, name, barCode, price, averageCost, stock);
+        try {
+            Integer id = Integer.parseInt(this.tfId.getText());
+            String name = this.tfName.getText();
+            String barCode = this.tfBarCode.getText();
+            Double price = Double.parseDouble(this.tfPrice.getText());
+            Double averageCost = Double.parseDouble(this.tfAverageCost.getText());
+            Integer stock = Integer.parseInt(this.tfStock.getText());
 
-        JOptionPane.showMessageDialog(null, "updated successfully: " + name);
+            ProductService productService = new ProductService();
+
+            productService.editProduct(id, name, barCode, price, averageCost, stock);
+
+            JOptionPane.showMessageDialog(this,
+                    "Edited successfully:\n" + name,
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter valid numbers for price, cost, and stock.",
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private class ButtonSaveHandler implements ActionListener {
