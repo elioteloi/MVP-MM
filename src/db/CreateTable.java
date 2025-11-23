@@ -33,5 +33,21 @@ public class CreateTable {
         } catch (SQLException e) {
             System.err.println("Error creating the table: " + e.getMessage());
         }
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS saleMM (" +
+                    "id int AUTO_INCREMENT PRIMARY KEY , " +
+                    "dateTime VARCHAR(100), " +
+                    "clientId VARCHAR(20), " +
+                    "name VARCHAR(100), " +
+                    "quantity VARCHAR(20), " +
+                    "price VARCHAR(20), " +
+                    "discount VARCHAR(20), " +
+                    "totalPrice VARCHAR(20)); ");
+            System.out.println("Table sale created sucessfully!");
+        } catch (SQLException e) {
+            System.err.println("Error creating the table: " + e.getMessage());
+        }
     }
 }
