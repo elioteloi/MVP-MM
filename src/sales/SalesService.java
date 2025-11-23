@@ -34,10 +34,6 @@ public class SalesService {
 
 
         double total = 0.0;
-        if (this.sales.containsKey(sale.getId())) {
-            throw new RuntimeException("ID of the sale already exist");
-        }
-        this.sales.put(sale.getId(), sale);
 
         for (SalesItems item : sale.salesItems) {
             Product product = productService.getProduct(item.getId());
