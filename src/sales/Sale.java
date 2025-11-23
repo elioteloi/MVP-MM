@@ -1,6 +1,7 @@
 package sales;
 
 import clients.Client;
+import clients.ClientService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,10 +10,50 @@ import java.util.Arrays;
 public class Sale {
         private int id;
         private LocalDateTime dataHora;
-        private Client client;  
+        private Client client;
         public ArrayList<SalesItems> salesItems = new ArrayList<>();
+        private String name;
+        private Integer quantity;
+        private double price;
         private double discount;
         private double totalPrice;
+
+
+    public Sale(int id,
+                String dateTime,
+                String idClient,
+                String name,
+                String quantity,
+                String price,
+                String discount,
+                String totalPrice) {
+
+        this.id = id;
+
+        // Convert date from DB
+        this.dataHora = LocalDateTime.parse(dateTime);
+
+        // Create client object from id
+        ClientService clientService = new ClientService();
+
+        this.client = clientService.getClient(Integer.parseInt(idClient));
+
+
+        // saleItem
+
+        this.name = name;
+
+        this.quantity = Integer.parseInt(quantity);
+
+        this.price = Double.parseDouble(price);
+
+        // discount
+        this.discount = Double.parseDouble(discount);
+
+        // total price
+        this.totalPrice = Double.parseDouble(totalPrice);
+    }
+
 
         public Sale(int id, Client client, SalesItems[] salesItemsArray, double discount, double totalPrice) {
 
@@ -75,6 +116,19 @@ public class Sale {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
 
     @Override
     public String toString() {
