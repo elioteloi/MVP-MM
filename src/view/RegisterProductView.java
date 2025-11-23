@@ -88,19 +88,43 @@ public class RegisterProductView extends JFrame {
     }
 
     private void createItem() {
-        String name = this.tfName.getText();
-        String barCode = this.tfBarCode.getText();
-        Double price = Double.parseDouble(this.tfPrice.getText());
-        Double averageCost = Double.parseDouble(this.tfAverageCost.getText());
-        Integer stock = Integer.parseInt(this.tfStock.getText());
+        try {
+            String name = this.tfName.getText();
+            String barCode = this.tfBarCode.getText();
+            Double price = Double.parseDouble(this.tfPrice.getText());
+            Double averageCost = Double.parseDouble(this.tfAverageCost.getText());
+            Integer stock = Integer.parseInt(this.tfStock.getText());
 
-        ProductService productService = new ProductService();
+            ProductService productService = new ProductService();
+            Product product = new Product(6, name, barCode, price, averageCost, stock);
 
-        Product product = new Product(6,name, barCode, price, averageCost, stock);
-//
-        productService.addProduct(product);
-        JOptionPane.showMessageDialog(null, "registered successfully: " + product);
+            productService.addProduct(product);
+
+            JOptionPane.showMessageDialog(this,
+                    "Registered successfully:\n" + product,
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter valid numbers for price, cost, and stock.",
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (IllegalArgumentException ex) {  // from duplicate name or validations
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(),
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } catch (RuntimeException ex) {  // database or unexpected errors
+            JOptionPane.showMessageDialog(this,
+                    "Error: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
+
 
     private class ButtonSaveHandler implements ActionListener {
 
