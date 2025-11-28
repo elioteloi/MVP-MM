@@ -2,8 +2,12 @@ package view;
 
 import products.Product;
 import products.ProductService;
+import sales.Sale;
 
 import javax.swing.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class StockReport extends JFrame{
@@ -20,6 +24,23 @@ public class StockReport extends JFrame{
 
 
         Object[][] data = new Object[products.size()][6];
+
+        try (PrintWriter writer = new PrintWriter(
+                new FileWriter("stockReport.txt"))) {
+            for (int i = 0; i < products.size(); i++) {
+                Product p = products.get(i);
+                writer.println("===============================");
+                writer.println("id " + p.getId());
+                writer.println("Name: " + p.getName());
+                writer.println("bar code: " + p.getBarCode());
+                writer.println("Price: " + p.getPrice());
+                writer.println("Average cost: " + p.getAverageCost());
+                writer.println("Stock: " + p.getStock());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < products.size(); i++) {
             Product p = products.get(i);

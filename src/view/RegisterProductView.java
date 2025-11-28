@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RegisterProductView extends JFrame {
+public class    RegisterProductView extends JFrame {
 
     private JPanel panel;
     private JTextField tfName;
@@ -89,6 +89,7 @@ public class RegisterProductView extends JFrame {
 
     private void createItem() {
         try {
+
             String name = this.tfName.getText();
             String barCode = this.tfBarCode.getText();
             Double price = Double.parseDouble(this.tfPrice.getText());

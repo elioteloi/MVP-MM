@@ -122,7 +122,7 @@ public class Main {
 //        System.out.println();
 //        System.out.println("//-----------------------------------------------------------//");
 ////        // add new sale
-        System.out.println(salesService.addSale(sale1));
+//        System.out.println(salesService.addSale(sale1));
 ////
 ////        // get all sales items
 //        System.out.println(salesService.listSale());

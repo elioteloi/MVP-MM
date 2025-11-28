@@ -22,13 +22,16 @@ public class DBConnection {
         return conn;
     }
 
-//    public static void close(Connection conn) {
-//        try {
-//            conn.close();
-//        } catch (SQLException e) {
-//            System.out.println("Error of SQL syntax closing the sql connection: " + e.getMessage());
-//        } catch (Exception e) {
-//            System.out.println("Error clossing the connection: "+ e.getMessage());
-//        }
-//    }
+    public static void close(Connection conn) {
+        if (conn != null) {
+            try {
+                if (!conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error closing SQL connection: " + e.getMessage());
+            }
+        }
+    }
+
 }
